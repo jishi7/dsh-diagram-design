@@ -92,7 +92,8 @@ It is a trimmed, DSH-only remix of [cathrynlavery/diagram-design](https://github
 
 - Claude Code / Codex / Factory Droid / Qoder plugin manifests and marketplace docs
 - slash commands and Pi prompt templates (here: plain language, or the script directly)
-- `docs/` (ADRs, screenshots, hero GIFs), `.github/` workflows, CI lint/verify scripts
+- `docs/` (ADRs, screenshots, hero GIFs), `.github/` workflows, CI lint/verify scripts — issue and PR templates are
+  back, as the only thing `.github/` holds
 - every path that assumed `skills/diagram-design/` as the install root — this repo's root is the bundle
 
 Kept deliberately: the 200 per-type examples and 5 templates in `assets/`. They are the markup ground truth the model
@@ -118,6 +119,9 @@ git -C ~/.dsh/skills/diagram-design pull     # clone or junction, either way; ca
 
 Upstream can move ahead independently; because this repo relocated the tree, merging `origin/main` needs the moves
 re-applied by hand. Re-run the conversion instead of resolving a 600-file rename conflict.
+
+Branches: `dsh` is the default and the only one edited; `main` is a mirror of it, updated on each release so that
+`git clone` from either name yields the same tree.
 
 ## Licence
 

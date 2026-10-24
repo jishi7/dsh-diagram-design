@@ -1,0 +1,52 @@
+name: Bug report
+description: Something in the skill, a script, or a generated diagram is wrong
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. This repo is a trimmed, DSH-only edition of
+        [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) — please keep that in mind when
+        the behaviour looks different from upstream docs.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: One paragraph. Include the request you made and what came back.
+      placeholder: "Asked for an architecture diagram with 6 nodes; two arrows crossed a label and the legend was clipped."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: input
+    id: type
+    attributes:
+      label: Diagram type
+      description: The `type-*.md` involved, if you know it (architecture, flowchart, quadrant, …).
+
+  - type: input
+    id: dsh
+    attributes:
+      label: DeepSeek Harness version
+      placeholder: "Desktop build / `dsh --version` output"
+
+  - type: textarea
+    id: selfcheck
+    attributes:
+      label: Output of `python scripts/self_check.py <file>`
+      description: If the problem is a generated file, paste the whole output. If it says OK and the diagram still
+        looks wrong, say so — that is a self-check gap worth knowing about.
+      render: text
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Screenshots, the generated HTML, or a minimal prompt that reproduces it.
