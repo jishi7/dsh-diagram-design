@@ -19,23 +19,32 @@ DSH discovers a skill as `<root>/<name>/SKILL.md`, one level deep, scanning thes
 | 400 | `~/.dsh/skills` |
 | 500 | `~/.agents/skills` |
 
-This repository is the bundle itself, so a junction (Windows, no admin needed) or symlink is enough:
+The repository root **is** the bundle (it holds `SKILL.md` at the top), so installing means putting this directory at
+`<root>/diagram-design`.
+
+```bash
+# global install: every session in every project  (recommended)
+git clone https://github.com/jishi7/dsh-diagram-design.git ~/.dsh/skills/diagram-design
+```
 
 ```powershell
-# global: every session in every project
-New-Item -ItemType Junction -Path "$HOME\.dsh\skills\diagram-design" -Target "<path-to-this-repo>"
+# Windows, same thing, then update with git pull
+git clone https://github.com/jishi7/dsh-diagram-design.git "$HOME\.dsh\skills\diagram-design"
+```
 
-# or project-scoped: only sessions whose project root is <project>
-New-Item -ItemType Junction -Path "<project>\.dsh\skills\diagram-design" -Target "<path-to-this-repo>"
+Already have a checkout elsewhere? Link it instead of cloning twice (junctions need no admin on Windows):
+
+```powershell
+New-Item -ItemType Junction -Path "$HOME\.dsh\skills\diagram-design" -Target "<path-to-your-checkout>"
 ```
 
 ```bash
-# macOS / Linux equivalent
-ln -s "<path-to-this-repo>" ~/.dsh/skills/diagram-design
+ln -s "<path-to-your-checkout>" ~/.dsh/skills/diagram-design      # macOS / Linux
 ```
 
-No restart is needed: the skill provider watches its roots and republishes the catalog on the next model step. A copy
-instead of a link also works — you then update by re-copying.
+For a project-only install, use `<project>\.dsh\skills\diagram-design` as the destination instead (rank 100 wins over
+the global root). No restart is needed: the skill provider watches its roots and republishes the catalog on the next
+model step.
 
 ## Use
 
@@ -77,7 +86,7 @@ Nothing in `references/` is preloaded.
 ## Update
 
 ```bash
-git -C "<path-to-this-repo>" pull          # junction keeps working, catalog refreshes itself
+git -C ~/.dsh/skills/diagram-design pull     # junction or clone, either way; catalog refreshes itself
 ```
 
 ## Licence
