@@ -1,131 +1,145 @@
-# diagram-design · DeepSeek Harness skill
+# diagram-design · DeepSeek Harness 专用 skill
 
-**Say "draw me an architecture diagram" — get one self-contained `.html` file with inline SVG, in your brand.**
+**一句话需求，换回一个自包含的 `.html` 图表文件——内联 SVG，能双击打开、能提交进 Git、能直接放上幻灯片。**
 
-`MIT` · 45 diagram types · imports `.drawio` / Mermaid / `.excalidraw` · exports SVG + PNG · Python 3.10+ · no build step
+`MIT` · 45 种图表类型 · 导入 `.drawio` / Mermaid / `.excalidraw` · 导出 SVG + PNG · Python 3.10+ · 无构建步骤
 
-<sub>**中文速览**：把一句话需求变成**单文件 HTML + 内联 SVG**的编辑设计风格图表，45 种类型；可从 drawio / Mermaid / Excalidraw 重绘；可按需导出 SVG/PNG。装法见下方 [Install](#install)（一条 `git clone` 到 `~/.dsh/skills/diagram-design`）。</sub>
+中文 | [English](README.en.md)
 
-Editorial diagrams have a look: one accent colour, 1px hairlines, no shadows, every coordinate on a 4px grid. This
-skill teaches the agent that style, picks the right layout for the content, and ships the result as a single file you
-can double-click open, commit, or paste into a slide.
+编辑设计风格是有具体定义的：只用一种强调色、1px 细线、没有阴影、所有坐标落在 4px 网格上。这个 skill 把这套规则
+连同「什么内容该用哪种图」的路由表一起交给 agent，最终产出单文件——没有外链图片，除 Google Fonts 外不发任何网络请求。
 
-## What you get
+## 能产出什么
 
-- **One file out.** Inline SVG, Google Fonts optional, no JS beyond an optional motion controller, no external images.
-- **45 types, three skins each.** Architecture, delta, flowchart, sequence, state, ER/DB schema, swimlane, quadrant,
-  radar, timeline, Gantt, Sankey, Wardley, kanban, journey, UML class, and the rest — minimal light, minimal dark,
-  full editorial.
-- **Redraw what exists.** `.drawio`, Mermaid blocks and `.excalidraw` files come in as a structure digest and go out
-  re-laid-out in the same house style.
-- **Brand onboarding.** Point it at your site (or paste tokens) once; later diagrams keep your paper, ink, accent and
-  fonts. Profiles live in `~/.diagram-design/profiles/`, outside the install.
-- **A real quality gate.** `scripts/self_check.py` rejects broken accessibility, remote assets, off-canvas content and
-  malformed motion before you ship.
+- **单文件交付。** 内联 SVG，可选 Google Fonts，除动画控制器外无 JS，无外部图片。
+- **45 种类型，各三种皮肤。** 架构图、架构增量、IT 现状、流程图、时序图、状态机、ER/数据模型、泳道图、四象限、
+  雷达图、时间线、甘特图、桑基图、Wardley 图、看板、用户旅程、UML 类图、数据库 schema……每种都有 minimal light、
+  minimal dark、full editorial 三个变体。
+- **已有的图能重画。** 给 `.drawio`、Mermaid 代码块或 `.excalidraw` 文件，先抽出结构（节点/边/容器），再按同一套
+  风格重排；不改内容、不乱加节点。
+- **品牌 onboarding。** 给一次站点地址（或直接粘色值），之后的图沿用你的纸色、墨色、强调色和字体。profile 存在
+  `~/.diagram-design/profiles/`，不在安装目录里，升级不会覆盖。
+- **带质量门。** `scripts/self_check.py` 会拦下损坏的无障碍契约、远程资源、超出画布的内容和残缺的动画标记。
 
-## Install
+## 安装
 
-The repository root **is** the skill bundle (`SKILL.md` sits at the top), so install = put this directory at
-`<skill-root>/diagram-design`.
+仓库根目录**就是** skill bundle（`SKILL.md` 在最外层），所以「安装」= 把这个目录放到 `<skill 根>/diagram-design`。
 
 ```bash
-# global install: available in every session, every project  (recommended)
+# 全局安装：所有会话、所有项目都能用（推荐）
 git clone https://github.com/jishi7/dsh-diagram-design.git ~/.dsh/skills/diagram-design
 ```
 
 ```powershell
-# Windows, same thing
+# Windows 同一条命令
 git clone https://github.com/jishi7/dsh-diagram-design.git "$HOME\.dsh\skills\diagram-design"
 ```
 
-Already have a checkout? Link it instead of cloning twice:
+已经有一份 checkout？用链接代替二次克隆（Windows junction 不需要管理员权限）：
 
 ```powershell
-New-Item -ItemType Junction -Path "$HOME\.dsh\skills\diagram-design" -Target "<path-to-your-checkout>"
+New-Item -ItemType Junction -Path "$HOME\.dsh\skills\diagram-design" -Target "<你的 checkout 路径>"
 ```
 
 ```bash
-ln -s "<path-to-your-checkout>" ~/.dsh/skills/diagram-design      # macOS / Linux
+ln -s "<你的 checkout 路径>" ~/.dsh/skills/diagram-design      # macOS / Linux
 ```
 
-Project-only install: use `<project>\.dsh\skills\diagram-design` as the destination instead (rank 100 beats the global
-root). No restart needed — the skill provider watches its roots and republishes the catalog on the next model step.
+只想在某个项目里启用：把目标换成 `<项目>\.dsh\skills\diagram-design`（rank 100，优先于全局根）。
+不需要重启：skill provider 会监视这些根目录，在下一个模型步骤发布替换目录。
 
-| Rank | Skill root scanned |
+DSH 按以下优先级（数字越小越优先）扫描 skill 根目录：
+
+| Rank | 根目录 |
 |---|---|
-| 100 | `<projectRoot>/.dsh/skills` |
-| 200 | `<projectRoot>/.agents/skills` |
-| 300 | `customSkillDirs` (config) |
+| 100 | `<项目根>/.dsh/skills` |
+| 200 | `<项目根>/.agents/skills` |
+| 300 | `customSkillDirs`（配置项） |
 | 400 | `~/.dsh/skills` |
 | 500 | `~/.agents/skills` |
 
-## Use
+每个根只扫**一层**：`<根>/<名字>/SKILL.md` 或 `<根>/<名字>.md`，不递归。同名 skill 由 rank 小的胜出。
 
-Just describe the diagram:
+## 使用
 
-> Make me an architecture diagram of my app: frontend, backend, database, Redis cache.
+直接描述你要什么：
 
-> I need a quadrant showing Q2 projects by impact vs effort.
+> 给我画一张这个应用的架构图：前端、后端、数据库、Redis 缓存。
 
-> Redraw this Mermaid block for my deck.
+> 我需要一张象限图，按「影响力 × 投入」排 Q2 的项目。
 
-It is also user-invocable as `/diagram-design`. On first use in a project it asks whether to onboard your brand
-(palette + fonts) or keep the default skin.
+> 把这个 Mermaid 块重画一下，放在我的 deck 里。
 
-## Requirements
+也可以 `/diagram-design` 显式调用。在一个项目里首次生成时，它会先问你要不要做品牌 onboarding（配色 + 字体），
+还是沿用默认皮肤。
 
-| Feature | Needs |
+## 依赖与自检
+
+| 功能 | 依赖 |
 |---|---|
-| HTML/SVG output, self-check | Python 3.10+ (`python` on Windows — not the Microsoft Store `python3` stub) |
-| PNG export (`scripts/export_png.py`) | Playwright + Chromium:<br>`python -m pip install playwright && python -m playwright install chromium` |
-| Import from draw.io / Mermaid / Excalidraw | nothing beyond Python |
+| 生成 HTML/SVG、自检 | Python 3.10+（Windows 用 `python`，**不要**用 Microsoft Store 的 `python3` 桩） |
+| 导出 PNG（`scripts/export_png.py`） | Playwright + Chromium：<br>`python -m pip install playwright && python -m playwright install chromium` |
+| 导入 draw.io / Mermaid / Excalidraw | 只需要 Python |
 
 ```bash
-python scripts/self_check.py <file.html>        # prints OK, or why not
-python scripts/export_svg.py <file.html>        # diagram-only SVG next to it
+python scripts/self_check.py <file.html>        # 打印 OK，或者说明哪里不合格
+python scripts/export_svg.py <file.html>        # 在文件旁生成只含图表的 SVG
 ```
 
-## What this repo is not
-
-It is a trimmed, DSH-only remix of [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)
-(MIT). Removed, because they only ever served other hosts or the maintainer's CI:
-
-- Claude Code / Codex / Factory Droid / Qoder plugin manifests and marketplace docs
-- slash commands and Pi prompt templates (here: plain language, or the script directly)
-- `docs/` (ADRs, screenshots, hero GIFs), `.github/` workflows, CI lint/verify scripts — issue and PR templates are
-  back, as the only thing `.github/` holds
-- every path that assumed `skills/diagram-design/` as the install root — this repo's root is the bundle
-
-Kept deliberately: the 210 per-type examples and 5 templates in `assets/`. They are the markup ground truth the model
-copies from, not documentation.
-
-## Layout
+## 仓库结构
 
 ```
-SKILL.md              routing, design system, checklist, DSH environment notes
-references/           63 files: 45 type-*.md + style-guide, semantic patterns, export/import, onboarding, profiles
-scripts/              6 helpers: self_check, export_svg/png, drawio/mermaid/excalidraw extract
-assets/               5 templates, 210 per-type examples, icons.html, index.html gallery
+SKILL.md              路由表、设计系统、检查清单、DSH 环境说明
+references/           63 个文件：45 个 type-*.md + 18 个专题（style-guide、语义模式、导入导出、onboarding、profiles）
+scripts/              6 个 Python 助手：self_check、export_svg/png、drawio/mermaid/excalidraw 三个 extract
+assets/               217 个文件：5 个模板 + 210 个示例 + icons.html + index.html 画廊
+.github/              3 个文件：issue 表单 + PR 检查清单（没有 CI）
 ```
 
-`SKILL.md` routes: a request loads one `type-*.md`, plus `primitives-core.md` / `layout-budget.md` only when needed.
-Nothing in `references/` is preloaded, so the skill costs a name and a description until it is actually used.
+`SKILL.md` 只负责路由：一次请求只加载对应的一个 `type-*.md`，需要时再加 `primitives-core.md` / `layout-budget.md`。
+`references/` 不会被预加载——没用之前，这个 skill 的常驻成本只有一个名字和一条描述。
 
-## Update
+## 与上游的差异
+
+这是 [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)（MIT）的 DSH 专用精简版。
+删掉的都是只服务于其他宿主或作者自己 CI 的东西：
+
+- Claude Code / Codex / Factory Droid / Qoder 的插件清单与 marketplace 文档
+- 斜杠命令与 Pi 提示词模板（这里改成自然语言触发，或直接调脚本）
+- `docs/`（ADR、截图、hero GIF）、`.github/` 的 workflow、上游的 CI lint/verify 脚本
+- 所有假设 `skills/diagram-design/` 是安装根的路径——本仓库的根目录就是 bundle
+
+**刻意保留**的是 `assets/` 里 210 个示例和 5 个模板：它们是模型抄写标记的「标准答案」，不是文档。
+
+## 更新与分支
 
 ```bash
-git -C ~/.dsh/skills/diagram-design pull     # clone or junction, either way; catalog refreshes itself
+git -C ~/.dsh/skills/diagram-design pull     # clone 或 junction 都适用，目录会自动刷新
 ```
 
-Upstream can move ahead independently; because this repo relocated the tree, merging `origin/main` needs the moves
-re-applied by hand. Re-run the conversion instead of resolving a 600-file rename conflict.
+分支模型：`dsh` 是默认分支，也是唯一被编辑的分支；`main` 是它的镜像，每次发布同步，两个名字 clone 下来的树一致。
 
-Branches: `dsh` is the default and the only one edited; `main` is a mirror of it, updated on each release so that
-`git clone` from either name yields the same tree.
+上游会独立演进；因为本仓库调整过目录结构，合并 `origin/main` 需要手工重放这些移动。更省事的做法是重跑一次转换，
+而不是去解 600 个文件的 rename 冲突。
 
-## Licence
+## 常见问题
 
-MIT — see [LICENSE](LICENSE). Icon licensing (Tabler MIT, Simple Icons CC0, Devicon MIT, log-z MIT) is recorded in
-[THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) and `references/primitive-icons.md`. Original design and text
-© Cathryn Lavery; DSH-specific changes (layout, host removal, command references, README) are released under the same
-licence.
+**装好了但 DSH 看不到？**
+先检查 `SKILL.md` 的 frontmatter 能不能被 YAML 解析。`description` 里出现 `": "` 时必须加引号——未加引号会静默
+丢失整个 skill：磁盘上一切正常，模型侧只会收到「未知 skill」。
+
+**`python3` 报错？**
+Windows 上 `python3` 往往是 Microsoft Store 的占位别名，不是解释器。用 `python`。
+
+**能不能出 PNG？**
+需要 Playwright + Chromium，见「依赖与自检」。没装时自检和 SVG 导出照常工作，缺 Playwright 只算 `warn`。
+
+**切换分支后 skill 失效？**
+用 junction 安装时，skill 指向的是工作树。`git checkout main` 会把 `SKILL.md` 换回旧结构的位置，DSH 立刻找不到它。
+要长期稳定，用 `git worktree` 或独立 clone 安装。
+
+## 许可
+
+MIT，见 [LICENSE](LICENSE)。图标许可（Tabler MIT、Simple Icons CC0、Devicon MIT、log-z MIT）记录在
+[THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) 和 `references/primitive-icons.md`。原始设计与文案
+© Cathryn Lavery；DSH 相关改动（结构、宿主移除、命令改写、本自述文件）以同一许可发布。
