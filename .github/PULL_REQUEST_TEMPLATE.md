@@ -13,7 +13,8 @@ This repo is a DSH-only edition. Before adding files, confirm they are not re-in
 - [ ] No CI/lint/verify scripts from upstream's maintainer suite
 - [ ] `python scripts/self_check.py` passes on every example or template I touched
 - [ ] Prompt snippets and docs say `python`, not `python3` (Windows Store alias trap)
-- [ ] `SKILL.md` still under 500 characters of frontmatter `description` (the DSH catalog truncates at 500)
+- [ ] `SKILL.md` frontmatter still parses as YAML: quote the `description` when it contains `: ` (an unquoted colon silently removes the skill from the DSH catalog)
+- [ ] `SKILL.md` description still under 500 characters (the DSH catalog truncates at 500)
 
 ## Testing
 

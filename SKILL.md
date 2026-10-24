@@ -1,6 +1,6 @@
 ---
 name: diagram-design
-description: Editorial diagram design for DeepSeek Harness: turn a plain-language request into one self-contained HTML file with inline SVG in the user's brand. 45 types incl. architecture, delta, IT current-state, flowchart, sequence, state, ER/DB schema, timeline, swimlane, quadrant, radar, treemap, exploded, Venn, pyramid, waterfall, line, Gantt, scatter, Sankey, fishbone, Wardley, kanban, journey, blueprint, deployment, dependency, UML, story map. Redraws .drawio, Mermaid, .excalidraw; exports SVG/PNG.
+description: "Editorial diagram design for DeepSeek Harness: turn a plain-language request into one self-contained HTML file with inline SVG in the user's brand. 45 types incl. architecture, delta, IT current-state, flowchart, sequence, state, ER/DB schema, timeline, swimlane, quadrant, radar, treemap, exploded, Venn, pyramid, waterfall, line, Gantt, scatter, Sankey, fishbone, Wardley, kanban, journey, blueprint, deployment, dependency, UML, story map. Redraws .drawio, Mermaid, .excalidraw; exports SVG/PNG."
 license: MIT
 metadata:
   version: "2.6"
