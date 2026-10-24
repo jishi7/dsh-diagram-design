@@ -6,7 +6,7 @@ The diagram-design skill itself is MIT-licensed (see [`LICENSE`](LICENSE)). It b
 
 - **License:** MIT
 - **Upstream:** https://github.com/tabler/tabler-icons
-- **Used in:** stroked icons in `skills/diagram-design/references/primitive-icons.md` and `skills/diagram-design/assets/icons.html` (categories: Compute, People, Network, Data, Kubernetes, Action, DevOps, plus the stroked Brand outlines for Docker, Terraform, AWS, Azure, GitHub).
+- **Used in:** stroked icons in `references/primitive-icons.md` and `assets/icons.html` (categories: Compute, People, Network, Data, Kubernetes, Action, DevOps, plus the stroked Brand outlines for Docker, Terraform, AWS, Azure, GitHub).
 
 The MIT license is reproduced in full at https://github.com/tabler/tabler-icons/blob/main/LICENSE.
 
@@ -14,7 +14,7 @@ The MIT license is reproduced in full at https://github.com/tabler/tabler-icons/
 
 - **License:** CC0 1.0 Universal (Public Domain Dedication)
 - **Upstream:** https://github.com/simple-icons/simple-icons
-- **Used in:** filled brand silhouettes in `skills/diagram-design/references/primitive-icons.md` and `skills/diagram-design/assets/icons.html` (Kubernetes, Google Cloud, PostgreSQL, Nginx, Gitea, Keycloak, MinIO, Apache NiFi, Apache Airflow, Trino, Apache Superset, Jupyter, Python, R).
+- **Used in:** filled brand silhouettes in `references/primitive-icons.md` and `assets/icons.html` (Kubernetes, Google Cloud, PostgreSQL, Nginx, Gitea, Keycloak, MinIO, Apache NiFi, Apache Airflow, Trino, Apache Superset, Jupyter, Python, R).
 
 The CC0 dedication is reproduced in full at https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md.
 
@@ -30,21 +30,13 @@ The MIT license is reproduced in full at https://github.com/log-z/logos/blob/mai
 
 - **License:** MIT
 - **Upstream:** https://github.com/devicons/devicon
-- **Used in:** the RStudio and SPSS icons in `scripts/vendor/icons/devicon/`.
+- **Used in:** the RStudio and SPSS icons embedded in `assets/icons.html` and documented in `references/primitive-icons.md`.
 
 The MIT license is reproduced in full at https://github.com/devicons/devicon/blob/master/LICENSE.
 
-## Instrument Serif
-
-- **License:** SIL Open Font License 1.1
-- **Upstream:** https://github.com/Instrument/instrument-serif
-- **Used in:** the plugin logo (`assets/logo.svg`, `assets/logo.png`, `assets/composer-icon.png`), which contains the outline of the lowercase "d" from Instrument Serif Italic. No font file is bundled.
-
-The license is reproduced in full at https://github.com/google/fonts/blob/main/ofl/instrumentserif/OFL.txt.
-
 ## One-off sourced icons
 
-The `scripts/vendor/icons/url/` directory contains one-off sourced icons for SAS, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:SAS_logo_horiz.svg) (public domain), and Stata, from the [IcePanel Technology Icons collection](https://icon.icepanel.io/Technology/svg/Stata.svg) published via techicons.dev. Their provenance is recorded here; use of these product marks is covered by the Trademarks note below.
+`assets/icons.html` contains one-off sourced icons for SAS, from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:SAS_logo_horiz.svg) (public domain), and Stata, from the [IcePanel Technology Icons collection](https://icon.icepanel.io/Technology/svg/Stata.svg) published via techicons.dev. Their provenance is recorded here; use of these product marks is covered by the Trademarks note below.
 
 ## Trademarks
 
