@@ -74,7 +74,7 @@ Always print:
 
 ```text
 Doctor summary: WARN (5 pass, 1 warn, 0 fail)
-[PASS] Python 3.12.4 at C:\Python312\python.exe
+[PASS] Python 3.12.4 at <interpreter path>
 [WARN] Playwright not importable in that interpreter (PNG export unavailable)
 [PASS] SKILL.md present at base directory
 [PASS] 6 helper scripts present
