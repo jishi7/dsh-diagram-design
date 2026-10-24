@@ -4,6 +4,8 @@
 
 `MIT` · 45 diagram types · imports `.drawio` / Mermaid / `.excalidraw` · exports SVG + PNG · Python 3.10+ · no build step
 
+<sub>**中文速览**：把一句话需求变成**单文件 HTML + 内联 SVG**的编辑设计风格图表，45 种类型；可从 drawio / Mermaid / Excalidraw 重绘；可按需导出 SVG/PNG。装法见下方 [Install](#install)（一条 `git clone` 到 `~/.dsh/skills/diagram-design`）。</sub>
+
 Editorial diagrams have a look: one accent colour, 1px hairlines, no shadows, every coordinate on a 4px grid. This
 skill teaches the agent that style, picks the right layout for the content, and ships the result as a single file you
 can double-click open, commit, or paste into a slide.
