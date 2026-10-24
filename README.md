@@ -96,7 +96,7 @@ It is a trimmed, DSH-only remix of [cathrynlavery/diagram-design](https://github
   back, as the only thing `.github/` holds
 - every path that assumed `skills/diagram-design/` as the install root — this repo's root is the bundle
 
-Kept deliberately: the 200 per-type examples and 5 templates in `assets/`. They are the markup ground truth the model
+Kept deliberately: the 210 per-type examples and 5 templates in `assets/`. They are the markup ground truth the model
 copies from, not documentation.
 
 ## Layout
@@ -105,7 +105,7 @@ copies from, not documentation.
 SKILL.md              routing, design system, checklist, DSH environment notes
 references/           63 files: 45 type-*.md + style-guide, semantic patterns, export/import, onboarding, profiles
 scripts/              6 helpers: self_check, export_svg/png, drawio/mermaid/excalidraw extract
-assets/               5 templates, 200 per-type examples, icons.html, index.html gallery
+assets/               5 templates, 210 per-type examples, icons.html, index.html gallery
 ```
 
 `SKILL.md` routes: a request loads one `type-*.md`, plus `primitives-core.md` / `layout-budget.md` only when needed.
